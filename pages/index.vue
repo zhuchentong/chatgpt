@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col absolute inset-0 p-10 space-y-10">
+  <div class="flex flex-col absolute inset-0 p-2 space-y-5">
     <div class="chatbox-container flex-auto relative">
       <div class="absolute inset-0 overflow-auto">
         <div
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div
-      class="inputbox-container flex items-center space-x-2 m-x-5"
+      class="inputbox-container flex items-center space-x-2"
       @keydown.enter.prevent="submit"
     >
       <input
@@ -40,7 +40,7 @@
     outline: none;
   }
   .inputbox-submit {
-    width: 200px;
+    width: 50px;
     height: 50px;
     background-color: #5966f2;
     color: #fff;
