@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
       stream: true,
       messages: JSON.parse(decodeURIComponent(messages! as string)),
       temperature: 0,
-      max_tokens: 100,
+      max_tokens: 2000,
     },
     { responseType: "stream" }
   );
