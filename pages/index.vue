@@ -26,7 +26,7 @@
         placeholder=" 请输入你想提问的问题吧"
         v-model="input"
       />
-      <button class="inputbox-submit" @click="() => (chats = [])">
+      <button class="inputbox-submit" @click="submit">
         <SubmitSvg style="width: 25px; height: 25px"></SubmitSvg>
       </button>
     </div>
