@@ -40,6 +40,14 @@
   border-radius: 20px;
   padding: 10px;
 }
+
+@media (max-width: 800px) {
+  .chat-container {
+    margin: unset;
+    border-radius: 0;
+  }
+}
+
 .inputbox-container {
   .inputbox {
     background-color: transparent;
