@@ -9,12 +9,15 @@
   },
   "devDependencies": {
     "@fern-api/openai": "^0.0.23",
+    "@iconify/json": "^2.2.36",
     "@unocss/nuxt": "^0.50.4",
     "@vespaiach/axios-fetch-adapter": "^0.3.1",
     "nuxt": "^3.3.1",
     "openai": "^3.2.1",
     "sass": "^1.59.3",
-    "stream": "^0.0.2"
+    "stream": "^0.0.2",
+    "unplugin-icons": "^0.15.3",
+    "vite-svg-loader": "^4.0.0"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.7",

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col absolute inset-0 p-2 space-y-5">
+  <div class="chat-container flex flex-col absolute inset-0 p-2 space-y-5">
     <div class="chatbox-container flex-auto relative">
       <div class="absolute inset-0 overflow-auto">
         <div
@@ -17,43 +17,71 @@
       class="inputbox-container flex items-center space-x-2"
       @keydown.enter.prevent="submit"
     >
+      <button class="inputbox-clear" @click="() => (chats = [])">
+        <CleanSvg style="width: 40px; height: 40px"></CleanSvg>
+      </button>
       <input
         class="inputbox flex-auto"
         contenteditable
-        placeholder="test"
+        placeholder=" 请输入你想提问的问题吧"
         v-model="input"
       />
-      <button class="inputbox-submit" @click="submit">提交</button>
-      <button class="inputbox-clear" @click="() => (chats = [])">清除</button>
+      <button class="inputbox-submit" @click="() => (chats = [])">
+        <SubmitSvg style="width: 25px; height: 25px"></SubmitSvg>
+      </button>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.chat-container {
+  margin: 100px;
+  background-color: #181818;
+  border-radius: 20px;
+  padding: 10px;
+}
 .inputbox-container {
   .inputbox {
+    background-color: transparent;
+    border-radius: 30px;
     height: 50px;
     padding: 0 10px;
     margin: 0;
-    border-color: #5966f2;
+    border: solid 2px #a4c6f8;
     font-size: 16px;
     outline: none;
+    color: #fff;
   }
   .inputbox-submit {
-    width: 50px;
-    height: 50px;
-    background-color: #5966f2;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
     color: #fff;
     border-radius: 10px;
     border: none;
+    position: absolute;
+    right: 16px;
+    background-color: #208cec;
+    border-radius: 50%;
+    padding-top: 5px;
+
+    svg {
+      fill: #fff;
+    }
   }
   .inputbox-clear {
+    cursor: pointer;
     width: 50px;
     height: 50px;
-    background-color: #f2a266;
+    background-color: transparent;
     color: #fff;
     border-radius: 10px;
     border: none;
+
+    svg {
+      fill: #f2a266;
+    }
   }
 }
 
@@ -79,6 +107,9 @@
 </style>
 
 <script lang="ts" setup>
+import CleanSvg from "@/assets/svgs/clean.svg?component";
+import SubmitSvg from "@/assets/svgs/submit.svg?component";
+
 interface chatRecord {
   role: "user" | "assistant";
   content: string;

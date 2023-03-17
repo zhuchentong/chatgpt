@@ -1,5 +1,8 @@
+import svgLoader from "vite-svg-loader";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  css: ["@/assets/style.scss"],
   experimental: {
     reactivityTransform: true,
   },
@@ -17,5 +20,8 @@ export default defineNuxtConfig({
     // core options
     shortcuts: [],
     rules: [],
+  },
+  vite: {
+    plugins: [svgLoader()],
   },
 });
