@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
   const configuration = new Configuration({
     apiKey: OPENAI_KEY,
-    basePath: OPENAI_URL,
+    // basePath: OPENAI_URL,
   });
   const openai = new OpenAIApi(configuration);
 
