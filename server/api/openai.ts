@@ -1,14 +1,16 @@
 import { Configuration, OpenAIApi } from "openai";
 
 export default defineEventHandler(async (event) => {
+  const isDevelopment = import.meta.env.NODE_ENV === "development";
   const { OPENAI_KEY, OPENAI_URL } = useRuntimeConfig();
 
   const { messages } = getQuery(event);
 
   const configuration = new Configuration({
     apiKey: OPENAI_KEY,
-    // basePath: OPENAI_URL,
+    basePath: isDevelopment ? OPENAI_URL : undefined,
   });
+
   const openai = new OpenAIApi(configuration);
 
   const response = await openai.createChatCompletion(
@@ -17,11 +19,11 @@ export default defineEventHandler(async (event) => {
       stream: true,
       messages: JSON.parse(decodeURIComponent(messages! as string)),
       temperature: 0,
-      max_tokens: 2000,
+      max_tokens: 1000,
     },
     { responseType: "stream" }
   );
-  console.log("ok");
+  console.log(`receive`);
   setResponseHeader(event, "Content-Type", "text/event-stream");
   return sendStream(event, response.data);
 });

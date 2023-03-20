@@ -2,7 +2,7 @@ import svgLoader from "vite-svg-loader";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  css: ["@/assets/style.scss"],
+  css: ["@/assets/style.scss", "highlight.js/styles/github.css"],
   experimental: {
     reactivityTransform: true,
   },

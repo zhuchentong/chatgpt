@@ -4,8 +4,12 @@ specifiers:
   '@fern-api/openai': ^0.0.23
   '@iconify/json': ^2.2.36
   '@pinia/nuxt': ^0.4.7
+  '@types/marked': ^4.0.8
   '@unocss/nuxt': ^0.50.4
   '@vespaiach/axios-fetch-adapter': ^0.3.1
+  highlight.js: ^11.7.0
+  highlightjs-copy: ^1.0.3
+  marked: ^4.2.12
   nuxt: ^3.3.1
   openai: ^3.2.1
   pinia: ^2.0.33
@@ -16,11 +20,15 @@ specifiers:
 
 dependencies:
   '@pinia/nuxt': 0.4.7
+  highlight.js: 11.7.0
+  highlightjs-copy: 1.0.3
+  marked: 4.2.12
   pinia: 2.0.33
 
 devDependencies:
   '@fern-api/openai': 0.0.23
   '@iconify/json': 2.2.36
+  '@types/marked': 4.0.8
   '@unocss/nuxt': 0.50.4
   '@vespaiach/axios-fetch-adapter': 0.3.1
   nuxt: 3.3.1_sass@1.59.3
@@ -1580,6 +1588,10 @@ packages:
 
   /@types/estree/1.0.0:
     resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
+
+  /@types/marked/4.0.8:
+    resolution: {integrity: sha512-HVNzMT5QlWCOdeuBsgXP8EZzKUf0+AXzN+sLmjvaB3ZlLqO+e4u0uXrdw9ub69wBKFs+c6/pA4r9sy6cCDvImw==}
+    dev: true
 
   /@types/node-fetch/2.6.2:
     resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
@@ -3336,6 +3348,15 @@ packages:
   /hash-sum/2.0.0:
     resolution: {integrity: sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==}
 
+  /highlight.js/11.7.0:
+    resolution: {integrity: sha512-1rRqesRFhMO/PRF+G86evnyJkCgaZFOI+Z6kdj15TA18funfoqJXvgPCLSf0SWq3SRfg1j3HlDs8o4s3EGq1oQ==}
+    engines: {node: '>=12.0.0'}
+    dev: false
+
+  /highlightjs-copy/1.0.3:
+    resolution: {integrity: sha512-vXHBmzz7IuJg8f5ixX7qxhfCCDnEQCXRuIzcd7yTblJazZT3ZkaRto0md8IfBu86JdK4VRIdKMubxKt7kwNGfg==}
+    dev: false
+
   /hookable/5.5.1:
     resolution: {integrity: sha512-ac50aYjbtRMMZEtTG0qnVaBDA+1lqL9fHzDnxMQlVuO6LZWcBB7NXjIu9H9iImClewNdrit4RiEzi9QpRTgKrg==}
 
@@ -3817,6 +3838,12 @@ packages:
     dependencies:
       semver: 6.3.0
     dev: true
+
+  /marked/4.2.12:
+    resolution: {integrity: sha512-yr8hSKa3Fv4D3jdZmtMMPghgVt6TWbk86WQaWhDloQjRSQhMMYCAro7jP7VDJrjjdV8pxVxMssXS8B8Y5DZ5aw==}
+    engines: {node: '>= 12'}
+    hasBin: true
+    dev: false
 
   /mdn-data/2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
