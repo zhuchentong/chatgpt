@@ -3,7 +3,7 @@
     class="chat-container flex flex-col absolute inset-0 p-2 space-y-5 shadow-2xl"
   >
     <div class="chatbox-container flex-auto relative">
-      <div class="absolute inset-0 overflow-auto">
+      <div class="absolute inset-0 overflow-auto scrollbar-hide">
         <div
           class="chat-record-wrapper"
           v-for="record in chats"
@@ -16,6 +16,7 @@
           >
           </span>
         </div>
+        <span ref="bottom"></span>
       </div>
     </div>
     <div class="inputbox-container flex items-end space-x-2">
@@ -42,6 +43,10 @@
 </template>
 
 <style lang="scss" scoped>
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes loading {
   /*以百分比来规定改变发生的时间 也可以通过"from"和"to",等价于0% 和 100%*/
   0% {
@@ -144,10 +149,12 @@
       padding: 0 10px;
       color: #fff;
       display: inline-block;
+      line-height: 1.5;
     }
 
     &.assistant {
       text-align: left;
+      min-width: 50%;
     }
     &.user {
       text-align: right;
@@ -180,7 +187,7 @@ let height = $ref("40px");
 let input = $(useState<string>("input"));
 let chats = $(useState<chatRecord[]>("chats", () => []));
 let response = $(useState("counter", () => "1000"));
-
+let bottom = $ref<HTMLElement>();
 watch(
   () => input,
   () => {
@@ -232,6 +239,10 @@ function appendChatMessage(data: any) {
 
     if (content) {
       chats[chats.length - 1].content += content;
+    }
+
+    if (bottom) {
+      bottom.scrollIntoView();
     }
   } catch (ex) {}
 }
