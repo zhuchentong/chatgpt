@@ -1,6 +1,6 @@
 <template>
   <div
-    class="chat-container flex flex-col absolute inset-0 p-2 space-y-5 shadow-2xl"
+    class="chat-container flex flex-col absolute inset-0 space-y-5 shadow-2xl"
   >
     <div class="chatbox-container flex-auto relative">
       <div class="absolute inset-0 overflow-auto scrollbar-hide">
@@ -188,6 +188,7 @@ let input = $(useState<string>("input"));
 let chats = $(useState<chatRecord[]>("chats", () => []));
 let response = $(useState("counter", () => "1000"));
 let bottom = $ref<HTMLElement>();
+
 watch(
   () => input,
   () => {
@@ -284,6 +285,7 @@ function submit() {
 
   sse.onerror = () => {
     loading = false;
+    sse.close();
   };
 
   input = "";
