@@ -45,21 +45,26 @@ function sendSystemMessage() {
   const assistant = store.currentAssistant;
   const chat = store.currentChat;
 
-  if (!assistant || !chat || !chat.records.length) {
+  if (!assistant || !chat) {
     return;
   }
 
-  const response = client.createChatCompletion(
-    {
+  chat.inputing = true;
+
+  client
+    .createChatCompletion({
       model: "gpt-3.5-turbo",
-      stream: true,
       messages: chat.records,
       temperature: 0,
-    },
-    { responseType: "stream" }
-  ) as any;
-
-  response.data.on("data", console.log);
+    })
+    .then(({ data }) => {
+      if (data) {
+        appendAssistantMessage(chat, data);
+      }
+    })
+    .catch(() => {
+      chat.inputing = false;
+    });
 }
 
 function sendUserMessage(input: string) {

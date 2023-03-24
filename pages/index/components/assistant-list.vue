@@ -12,6 +12,7 @@
         class="avatar"
         :class="{ active: store.activeAssistant === assistant.id }"
       />
+      <div class="text-center text-sm text-white">{{ assistant.name }}</div>
     </div>
     <n-button
       strong
@@ -32,7 +33,7 @@
 <style lang="scss" scoped>
 .assistant-list {
   position: fixed;
-  bottom: 20px;
+  bottom: 10px;
   left: 0;
   right: 0;
   display: flex;
