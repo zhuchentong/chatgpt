@@ -6,7 +6,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy:pm2": "pm2 deploy ecosystem.config.js production setup"
+    "deploy:pm2": "pm2 deploy ecosystem.config.js production update"
   },
   "devDependencies": {
     "@iconify-json/icon-park": "^1.1.10",
