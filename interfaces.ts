@@ -18,14 +18,32 @@ export interface Assistant extends AssistantOptions {
 }
 
 export interface AssistantOptions {
+  /**
+   * 唯一主键
+   */
   key: string;
+  /**
+   * 头像 avatar-000 - avatar-050
+   */
   avatar: string;
+  /**
+   * 显示名称
+   */
   name: string;
+  /**
+   * 提示词
+   */
   prompt: string;
+  /**
+   * 主动聊天
+   */
   auto: boolean;
+  /**
+   * 输入提示
+   */
   placeholder?: string;
-  examples?: {
-    question: string;
-    answer: string;
-  }[];
+  /**
+   * 示例
+   */
+  examples?: string[];
 }
