@@ -23,4 +23,9 @@ export interface AssistantOptions {
   name: string;
   prompt: string;
   auto: boolean;
+  placeholder?: string;
+  examples?: {
+    question: string;
+    answer: string;
+  }[];
 }

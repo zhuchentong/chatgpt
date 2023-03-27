@@ -84,11 +84,16 @@ export const useStore = defineStore("app", {
 
       assistant.chats.push(chat);
       this.activeChat = id;
+      let content = "";
 
       if (assistant.prompt) {
+        content = assistant.prompt;
+      }
+
+      if (content) {
         chat.records.push({
           role: "system",
-          content: assistant.prompt,
+          content,
         });
       }
 

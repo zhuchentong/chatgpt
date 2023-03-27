@@ -5,7 +5,7 @@
       <n-input
         v-model:value="inputText"
         class="flex-auto"
-        placeholder="请输入消息"
+        :placeholder="assistant.placeholder || '请输入消息'"
         type="textarea"
         @keypress.exact.enter.stop.prevent="onSubmit"
         :autosize="{
@@ -25,8 +25,10 @@
 <script setup lang="ts">
 import { useStore } from "~~/store";
 
+const store = useStore();
 const { sendUserMessage } = useChat();
 let inputText = $ref("");
+const assistant = computed(() => store.currentAssistant);
 
 function onSubmit() {
   if (!inputText) {

@@ -59,7 +59,7 @@ function appendAssistantMessage(
 
 function sendChatMessage(chat: Chat) {
   chat.inputing = true;
-
+  console.log(chat.records);
   client
     .createChatCompletion({
       model: "gpt-3.5-turbo",
