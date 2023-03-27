@@ -5,16 +5,15 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "deploy:pm2": "pm2 deploy ecosystem.config.js production setup"
   },
   "devDependencies": {
-    "@fern-api/openai": "^0.0.23",
     "@iconify-json/icon-park": "^1.1.10",
     "@iconify-json/icon-park-outline": "^1.1.10",
     "@pinia-plugin-persistedstate/nuxt": "^1.1.1",
     "@types/marked": "^4.0.8",
     "@unocss/nuxt": "^0.50.4",
-    "@vespaiach/axios-fetch-adapter": "^0.3.1",
     "nuxt": "^3.3.1",
     "openai": "^3.2.1",
     "sass": "^1.59.3",

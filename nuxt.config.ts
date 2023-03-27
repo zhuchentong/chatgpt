@@ -5,6 +5,13 @@ import iconsResolver from "unplugin-icons/resolver";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  head: {
+    title: "ChatGPT Client",
+    meta: [
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+    ],
+  },
   components: {
     global: true,
     dirs: ["~/components"],

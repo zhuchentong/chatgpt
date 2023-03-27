@@ -1,17 +1,39 @@
 import { Configuration, CreateChatCompletionResponse, OpenAIApi } from "openai";
 import { Chat } from "~~/interfaces";
 import { useStore } from "~~/store";
+import axios from "axios";
 
 let client: OpenAIApi;
 
-function createAPIClient() {
+export function createAPIClient(
+  apiKey?: string,
+  apuUrl?: string,
+  apiProxy?: string
+) {
   const store = useStore();
   const configuration = new Configuration({
-    apiKey: store.OPENAI_KEY,
-    basePath: store.OPENAI_URL,
+    apiKey: store.OPENAI_KEY || apiKey,
   });
 
-  client = new OpenAIApi(configuration);
+  const getAxiosInstance = () => {
+    const proxy = store.OPENAI_PROXY || apiProxy;
+
+    if (proxy) {
+      const url = new URL(proxy);
+      return axios.create({
+        baseURL: store.OPENAI_URL || apuUrl,
+        timeout: 30000,
+        proxy: {
+          protocol: url.protocol,
+          host: url.hostname,
+          port: parseInt(url.port),
+        },
+      });
+    }
+  };
+
+  client = new OpenAIApi(configuration, store.OPENAI_URL, getAxiosInstance());
+  return client;
 }
 
 function appendAssistantMessage(
@@ -35,20 +57,7 @@ function appendAssistantMessage(
   chat.usage += usage?.total_tokens || 0;
 }
 
-function sendSystemMessage() {
-  if (!client) {
-    createAPIClient();
-  }
-
-  const store = useStore();
-
-  const assistant = store.currentAssistant;
-  const chat = store.currentChat;
-
-  if (!assistant || !chat) {
-    return;
-  }
-
+function sendChatMessage(chat: Chat) {
   chat.inputing = true;
 
   client
@@ -65,6 +74,22 @@ function sendSystemMessage() {
     .catch(() => {
       chat.inputing = false;
     });
+}
+function sendSystemMessage() {
+  if (!client) {
+    createAPIClient();
+  }
+
+  const store = useStore();
+
+  const assistant = store.currentAssistant;
+  const chat = store.currentChat;
+
+  if (!assistant || !chat) {
+    return;
+  }
+
+  sendChatMessage(chat);
 }
 
 function sendUserMessage(input: string) {
@@ -86,26 +111,12 @@ function sendUserMessage(input: string) {
     content: input,
   });
 
-  chat.inputing = true;
-
-  client
-    .createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: chat.records,
-      temperature: 0,
-    })
-    .then(({ data }) => {
-      if (data) {
-        appendAssistantMessage(chat, data);
-      }
-    })
-    .catch(() => {
-      chat.inputing = false;
-    });
+  sendChatMessage(chat);
 }
 
 export function useChat() {
   return {
+    createAPIClient,
     sendUserMessage,
     sendSystemMessage,
   };

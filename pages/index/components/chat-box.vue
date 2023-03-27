@@ -9,6 +9,11 @@
         ref="record-list"
       >
         <ChatRecord v-for="record in records" :record="record"></ChatRecord>
+        <ChatRecord
+          v-if="chat.inputing"
+          :record="{ role: 'assistant', content: '' }"
+          inputing
+        ></ChatRecord>
       </div>
     </div>
 
@@ -38,7 +43,20 @@ const records = computed(() => {
 
 const recordListRef = $(templateRef<HTMLElement>("record-list"));
 
-watch(records, () => {
-  recordListRef.scrollTop = recordListRef.scrollHeight;
+const chat = computed(() => store.currentChat);
+
+watch(
+  () => [records, chat.value.inputing],
+  () => {
+    nextTick(() => {
+      recordListRef.scrollTop = recordListRef.scrollHeight;
+    });
+  }
+);
+
+onMounted(() => {
+  nextTick(() => {
+    recordListRef.scrollTop = recordListRef.scrollHeight;
+  });
 });
 </script>

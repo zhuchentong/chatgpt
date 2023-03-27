@@ -8,6 +8,24 @@
     </div>
     <AssistantList></AssistantList>
   </div>
+  <n-drawer
+    v-model:show="store.assistantSettingShow"
+    :width="400"
+    placement="right"
+  >
+    <n-drawer-content title="助手设置">
+      <AssistantSetting></AssistantSetting>
+    </n-drawer-content>
+  </n-drawer>
+  <n-drawer
+    v-model:show="store.systemSettingShow"
+    :width="400"
+    placement="right"
+  >
+    <n-drawer-content title="系统设置">
+      <SystemSetting></SystemSetting>
+    </n-drawer-content>
+  </n-drawer>
 </template>
 <style lang="scss" scoped>
 .chat-container {
@@ -20,8 +38,13 @@
 import AssistantList from "./components/assistant-list.vue";
 import ChatList from "./components/chat-list.vue";
 import ChatBox from "./components/chat-box.vue";
+import { useStore } from "~~/store";
+import AssistantSetting from "./components/assistant-setting.vue";
+import SystemSetting from "./components/system-setting.vue";
 
 definePageMeta({
   middleware: ["default-assistant"],
 });
+
+const store = useStore();
 </script>

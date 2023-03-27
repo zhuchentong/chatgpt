@@ -26,7 +26,7 @@
 import { useStore } from "~~/store";
 
 const { sendUserMessage } = useChat();
-let inputText = $ref("写一首绝句");
+let inputText = $ref("");
 
 function onSubmit() {
   if (!inputText) {

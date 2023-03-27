@@ -1,15 +1,12 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@fern-api/openai': ^0.0.23
   '@iconify-json/icon-park': ^1.1.10
   '@iconify-json/icon-park-outline': ^1.1.10
-  '@iconify/json': ^2.2.36
   '@pinia-plugin-persistedstate/nuxt': ^1.1.1
   '@pinia/nuxt': ^0.4.7
   '@types/marked': ^4.0.8
   '@unocss/nuxt': ^0.50.4
-  '@vespaiach/axios-fetch-adapter': ^0.3.1
   '@vueuse/nuxt': ^9.13.0
   highlight.js: ^11.7.0
   highlightjs-copy: ^1.0.3
@@ -34,14 +31,11 @@ dependencies:
   pinia: 2.0.33
 
 devDependencies:
-  '@fern-api/openai': 0.0.23
   '@iconify-json/icon-park': 1.1.10
   '@iconify-json/icon-park-outline': 1.1.10
-  '@iconify/json': 2.2.36
   '@pinia-plugin-persistedstate/nuxt': 1.1.1_2fa6k6uov4i2t7fhwaa7f3r2li
   '@types/marked': 4.0.8
   '@unocss/nuxt': 0.50.4
-  '@vespaiach/axios-fetch-adapter': 0.3.1
   nuxt: 3.3.1_sass@1.59.3
   openai: 3.2.1
   sass: 1.59.3
@@ -1025,18 +1019,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@fern-api/openai/0.0.23:
-    resolution: {integrity: sha512-8XUSRHNzEtnEUm89zeECsWjnsHF1dOP7TEmHkg/mP3PdwxS0McCWix/Wrcyr2JvbDnf30xnxNUSI9/ESoo6jdA==}
-    dependencies:
-      '@types/url-join': 4.0.1
-      axios: 0.27.2
-      form-data: 4.0.0
-      js-base64: 3.7.2
-      url-join: 4.0.1
-    transitivePeerDependencies:
-      - debug
-    dev: true
-
   /@iconify-json/icon-park-outline/1.1.10:
     resolution: {integrity: sha512-yi4Ge5dJj6gPCvj5CeG7hjx6xdjmFpn6+YxftSKZx8FQkerTHofD90agMDo8+zYH9FG2CwVM1okLEBkDQn0QBA==}
     dependencies:
@@ -1047,13 +1029,6 @@ packages:
     resolution: {integrity: sha512-jxEvEPtO7GbkZtdTB82eq6s7RV4wk8Ofo3mKXdJVazMUtME5GGwNrKDug3rNzv0axXU0sDMuaaBz5Pgp56IyXQ==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: true
-
-  /@iconify/json/2.2.36:
-    resolution: {integrity: sha512-M3NzzLjmE5udIO24EgT9MV1LfU5FQDw9nfAfgrV3NySiLMtZFoOvFEdURJihH2SJWCoFhIpRRkgSZKN8qWIhuQ==}
-    dependencies:
-      '@iconify/types': 2.0.0
-      pathe: 1.1.0
     dev: true
 
   /@iconify/types/2.0.0:
@@ -1583,10 +1558,6 @@ packages:
       '@types/node': 18.15.3
     optional: true
 
-  /@types/url-join/4.0.1:
-    resolution: {integrity: sha512-wDXw9LEEUHyV+7UWy7U315nrJGJ7p1BzaCxDpEoLr789Dk1WDVMMlf3iBfbG2F8NdWnYyFbtTxUn2ZNbm1Q4LQ==}
-    dev: true
-
   /@types/web-bluetooth/0.0.16:
     resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==}
     dev: false
@@ -1859,12 +1830,6 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
-
-  /@vespaiach/axios-fetch-adapter/0.3.1:
-    resolution: {integrity: sha512-+1F52VWXmQHSRFSv4/H0wtnxfvjRMPK5531e880MIjypPdUSX6QZuoDgEVeCE1vjhzDdxCVX7rOqkub7StEUwQ==}
-    peerDependencies:
-      axios: '>=0.26.0'
-    dev: true
 
   /@vitejs/plugin-vue-jsx/3.0.0_vite@4.1.4+vue@3.2.47:
     resolution: {integrity: sha512-vurkuzgac5SYuxd2HUZqAFAWGTF10diKBwJNbCvnWijNZfXd+7jMtqjPFbGt7idOJUn584fP1Ar9j/GN2jQ3Ew==}
@@ -2160,15 +2125,6 @@ packages:
     resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
     dependencies:
       follow-redirects: 1.15.2
-    transitivePeerDependencies:
-      - debug
-    dev: true
-
-  /axios/0.27.2:
-    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
-    dependencies:
-      follow-redirects: 1.15.2
-      form-data: 4.0.0
     transitivePeerDependencies:
       - debug
     dev: true
@@ -3463,10 +3419,6 @@ packages:
   /jiti/1.18.2:
     resolution: {integrity: sha512-QAdOptna2NYiSSpv0O/BwoHBSmz4YhpzJHyi+fnMRTXFjp7B8i/YG5Z8IfusxB1ufjcD2Sre1F3R+nX3fvy7gg==}
     hasBin: true
-
-  /js-base64/3.7.2:
-    resolution: {integrity: sha512-NnRs6dsyqUXejqk/yv2aiXlAvOs56sLkX6nUdeaNezI5LFFLlsZjOThmwnrcwh5ZZRwZlCMnVAY3CvhIhoVEKQ==}
-    dev: true
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -5326,10 +5278,6 @@ packages:
       browserslist: 4.21.5
       escalade: 3.1.1
       picocolors: 1.0.0
-
-  /url-join/4.0.1:
-    resolution: {integrity: sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==}
-    dev: true
 
   /url-parse/1.5.10:
     resolution: {integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==}

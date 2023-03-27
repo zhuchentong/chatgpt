@@ -4,6 +4,9 @@ import { Assistant, AssistantOptions, Chat } from "~~/interfaces";
 type State = {
   OPENAI_KEY: string;
   OPENAI_URL: string;
+  OPENAI_PROXY: string;
+  assistantSettingShow: boolean;
+  systemSettingShow: boolean;
   assistants: Assistant[];
   activeAssistant: string;
   activeChat: string;
@@ -13,6 +16,9 @@ type State = {
 const initialState: State = {
   OPENAI_KEY: "",
   OPENAI_URL: "",
+  OPENAI_PROXY: "",
+  assistantSettingShow: false,
+  systemSettingShow: false,
   assistants: [],
   activeAssistant: "",
   activeChat: "",
@@ -26,11 +32,7 @@ export const useStore = defineStore("app", {
       return this.currentAssistant.chats.find((x) => x.id === this.activeChat)!;
     },
     currentAssistant(): Assistant {
-      console.log(this.assistants, this.activeAssistant);
-
-      const a = this.assistants.find((x) => x.id === this.activeAssistant)!;
-      console.log(1111, a, 333);
-      return a;
+      return this.assistants.find((x) => x.id === this.activeAssistant)!;
     },
   },
   actions: {
@@ -58,7 +60,13 @@ export const useStore = defineStore("app", {
 
       this.createChat();
     },
-    deleteAssistant() {},
+    deleteAssistant(id: string) {
+      const target = this.assistants.find((x) => x.default);
+
+      this.changeAssistant(target?.id!);
+
+      this.assistants = this.assistants.filter((x) => x.id !== id);
+    },
     createChat() {
       const assistant = this.currentAssistant;
       const id = `ASSISTANT_${Math.random()
@@ -103,6 +111,12 @@ export const useStore = defineStore("app", {
       const [chat] = assistant?.chats || [];
       this.activeAssistant = id;
       this.activeChat = chat.id;
+    },
+    toggleAssistantSettingShow() {
+      this.assistantSettingShow = !this.assistantSettingShow;
+    },
+    toggleSystemSettingShow() {
+      this.systemSettingShow = !this.systemSettingShow;
     },
   },
   persist: {

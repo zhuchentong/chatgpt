@@ -23,7 +23,6 @@ export default defineEventHandler(async (event) => {
     },
     { responseType: "stream" }
   );
-  console.log(`receive`);
   setResponseHeader(event, "Content-Type", "text/event-stream");
   return sendStream(event, response.data);
 });
