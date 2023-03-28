@@ -7,6 +7,7 @@ export default defineNuxtRouteMiddleware((to) => {
   }
   const app = useNuxtApp();
   const store = useStore(app.$pinia as Pinia);
+
   if (!store.OPENAI_KEY && to.meta.requireAuth !== false) {
     return navigateTo("/setup");
   }

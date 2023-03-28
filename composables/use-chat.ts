@@ -7,22 +7,21 @@ let client: OpenAIApi;
 
 export function createAPIClient(
   apiKey?: string,
-  apuUrl?: string,
+  apiUrl?: string,
   apiProxy?: string
 ) {
   const store = useStore();
   const configuration = new Configuration({
     apiKey: store.OPENAI_KEY || apiKey,
-    basePath: store.OPENAI_URL,
+    basePath: store.OPENAI_URL || apiUrl,
   });
 
   const getAxiosInstance = () => {
     const proxy = store.OPENAI_PROXY || apiProxy;
-
     if (proxy) {
       const url = new URL(proxy);
       return axios.create({
-        baseURL: store.OPENAI_URL || apuUrl,
+        baseURL: store.OPENAI_URL || apiUrl,
         timeout: 30000,
         proxy: {
           protocol: url.protocol,
