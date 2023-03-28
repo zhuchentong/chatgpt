@@ -13,6 +13,7 @@ export function createAPIClient(
   const store = useStore();
   const configuration = new Configuration({
     apiKey: store.OPENAI_KEY || apiKey,
+    basePath: store.OPENAI_URL,
   });
 
   const getAxiosInstance = () => {
@@ -59,7 +60,7 @@ function appendAssistantMessage(
 
 function sendChatMessage(chat: Chat) {
   chat.inputing = true;
-  console.log(chat.records);
+
   client
     .createChatCompletion({
       model: "gpt-3.5-turbo",
