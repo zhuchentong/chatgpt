@@ -13,6 +13,7 @@ body {
     border-radius: 10px;
     position: relative;
     pointer-events: none;
+    white-space: pre-line;
 
     &::after {
       content: "COPY";

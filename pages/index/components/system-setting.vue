@@ -21,6 +21,12 @@
         </template>
       </n-input-number>
     </n-form-item>
+    <n-form-item label="主题">
+      <n-switch :value="store.darkTheme" @change="store.toggleDarkTheme">
+        <template #checked> 深色 </template>
+        <template #unchecked> 浅色 </template>
+      </n-switch>
+    </n-form-item>
   </n-form>
 </template>
 <style lang="scss"></style>

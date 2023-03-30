@@ -8,6 +8,7 @@ type State = {
   OPENAI_URL: string;
   OPENAI_PROXY: string;
   OPENAI_MODEL: string;
+  darkTheme: boolean;
   tokenLimit: number;
   assistantSettingShow: boolean;
   systemSettingShow: boolean;
@@ -23,6 +24,7 @@ const initialState: State = {
   OPENAI_PROXY: "",
   OPENAI_MODEL: "gpt-3.5-turbo",
   tokenLimit: 0,
+  darkTheme: window.matchMedia("(prefers-color-scheme: dark)").matches,
   assistantSettingShow: false,
   systemSettingShow: false,
   assistants: [],
@@ -53,6 +55,9 @@ export const useStore = defineStore("app", {
     },
     updateTokenLimit(value: number) {
       this.tokenLimit = value;
+    },
+    toggleDarkTheme() {
+      this.darkTheme = !this.darkTheme;
     },
     createAssistant(options: AssistantOptions) {
       const id = `ASSISTANT_${Math.random()

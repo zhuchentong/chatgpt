@@ -63,10 +63,9 @@
 </template>
 <style lang="scss" scoped>
 .page-container {
-  background-color: #fff;
   margin: 100px;
-  background-color: #fff;
   border-radius: 20px;
+  background-color: v-bind("theme.bodyColor");
 }
 
 .actions {
@@ -92,13 +91,14 @@
 }
 </style>
 <script setup lang="ts">
+import { useThemeVars } from "naive-ui";
 import { AssistantOptions } from "~~/interfaces";
 import { useStore } from "~~/store";
 
 const router = useRouter();
 const store = useStore();
 const assistants = useAssistants();
-
+const theme = useThemeVars();
 function onCreateAssistant(assistant: AssistantOptions) {
   store.createAssistant(assistant);
   navigateTo("/");

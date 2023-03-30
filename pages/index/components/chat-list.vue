@@ -59,7 +59,6 @@
 .chat-list {
   width: 250px;
   padding: 30px 20px 20px 20px;
-  background-color: #f3f3f3;
   // background-color: red;
 }
 </style>

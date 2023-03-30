@@ -28,8 +28,9 @@
 .chat-box {
   flex: auto;
 }
-.chat-input-container {
-  background-color: #f3f3f3;
+
+.chat-record-container {
+  background-color: v-bind("theme.baseColor");
 }
 </style>
 <script setup lang="ts">
@@ -38,8 +39,9 @@ import ChatRecord from "./chat-record.vue";
 import ChatInput from "./chat-input.vue";
 import ChatHeader from "./chat-header.vue";
 import { ChatRole } from "~~/config/enum.config";
+import { useThemeVars } from "naive-ui";
 const store = useStore();
-
+const theme = useThemeVars();
 const records = computed(() => {
   return store.currentChat.records.filter(
     (record) => record.role !== "system" && !record.deleted

@@ -35,7 +35,7 @@
 <style lang="scss" scoped>
 .chat-container {
   margin: 100px;
-  background-color: #fff;
+  background-color: v-bind("theme.bodyColor");
   border-radius: 20px;
 }
 </style>
@@ -47,10 +47,12 @@ import { useStore } from "~~/store";
 import AssistantSetting from "./components/assistant-setting.vue";
 import SystemSetting from "./components/system-setting.vue";
 import APISetting from "./components/api-setting.vue";
+import { useThemeVars } from "naive-ui";
 
 definePageMeta({
   middleware: ["default-assistant"],
 });
 
 const store = useStore();
+const theme = useThemeVars();
 </script>

@@ -45,7 +45,6 @@
 <style lang="scss" scoped>
 .chat-header {
   padding: 15px 20px;
-  background-color: #f3f3f3;
 }
 </style>
 
