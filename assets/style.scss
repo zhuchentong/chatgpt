@@ -5,23 +5,35 @@ body {
   background: linear-gradient(to right top, #eb9a77, #800080);
 }
 
-pre {
-  background-color: #181818;
-  padding: 10px;
-  border-radius: 10px;
-  position: relative;
-  pointer-events: none;
+.record-content {
+  pre {
+    display: block;
+    background-color: #181818;
+    padding: 10px 20px;
+    border-radius: 10px;
+    position: relative;
+    pointer-events: none;
 
-  &::after {
-    pointer-events: all;
-    content: "COPY";
-    padding: 5px;
-    border-top-right-radius: 10px;
-    background-color: #55a1df;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    cursor: pointer;
-    font-size: 10px;
+    &::after {
+      content: "COPY";
+      pointer-events: all;
+      padding: 5px;
+      border-top-right-radius: 10px;
+      background-color: #55a1df;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      cursor: pointer;
+      font-size: 10px;
+      visibility: hidden;
+    }
+  }
+
+  &:hover {
+    pre {
+      &::after {
+        visibility: visible;
+      }
+    }
   }
 }

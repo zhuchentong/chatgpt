@@ -2,7 +2,7 @@
   <div class="assistant-list flex space-x-5">
     <div
       v-for="assistant in store.assistants"
-      class="assistant"
+      class="assistant text-center"
       @click="() => onChangeAssistant(assistant.id)"
     >
       <n-avatar
@@ -12,7 +12,7 @@
         class="avatar"
         :class="{ active: store.activeAssistant === assistant.id }"
       />
-      <div class="text-center text-sm text-white">{{ assistant.name }}</div>
+      <div class="text-center text-xs text-white">{{ assistant.name }}</div>
     </div>
     <n-button
       strong
