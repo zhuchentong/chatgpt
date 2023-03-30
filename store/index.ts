@@ -1,10 +1,14 @@
+import { useDialog } from "naive-ui";
 import { defineStore } from "pinia";
+import { ChatRole } from "~~/config/enum.config";
 import { Assistant, AssistantOptions, Chat } from "~~/interfaces";
 
 type State = {
   OPENAI_KEY: string;
   OPENAI_URL: string;
   OPENAI_PROXY: string;
+  OPENAI_MODEL: string;
+  tokenLimit: number;
   assistantSettingShow: boolean;
   systemSettingShow: boolean;
   assistants: Assistant[];
@@ -17,6 +21,8 @@ const initialState: State = {
   OPENAI_KEY: "",
   OPENAI_URL: "",
   OPENAI_PROXY: "",
+  OPENAI_MODEL: "gpt-3.5-turbo",
+  tokenLimit: 0,
   assistantSettingShow: false,
   systemSettingShow: false,
   assistants: [],
@@ -41,6 +47,12 @@ export const useStore = defineStore("app", {
     },
     updateAPIURL(value: string) {
       this.OPENAI_URL = value;
+    },
+    updateAPIMODEL(value: string) {
+      this.OPENAI_MODEL = value;
+    },
+    updateTokenLimit(value: number) {
+      this.tokenLimit = value;
     },
     createAssistant(options: AssistantOptions) {
       const id = `ASSISTANT_${Math.random()
@@ -68,6 +80,7 @@ export const useStore = defineStore("app", {
       this.assistants = this.assistants.filter((x) => x.id !== id);
     },
     createChat() {
+      const { appendChatMessage } = useChat();
       const assistant = this.currentAssistant;
       const id = `ASSISTANT_${Math.random()
         .toString(32)
@@ -91,10 +104,7 @@ export const useStore = defineStore("app", {
       }
 
       if (content) {
-        chat.records.push({
-          role: "system",
-          content,
-        });
+        appendChatMessage(chat, ChatRole.System, content);
       }
 
       if (assistant.auto) {
@@ -102,11 +112,22 @@ export const useStore = defineStore("app", {
         sendSystemMessage();
       }
     },
-    deleteChat() {},
+    deleteChat(chat: Chat) {
+      const dialog = useDialog();
+
+      dialog.warning({
+        title: "删除",
+        content: "确定删除对话？",
+        positiveText: "确定",
+        negativeText: "取消",
+        maskClosable: false,
+        onPositiveClick: () => {
+          chat.deleted = true;
+        },
+      });
+    },
     clearChat() {
-      this.currentChat.records = this.currentChat.records.filter(
-        (record) => record.role === "system"
-      );
+      this.currentChat.records.forEach((record) => (record.deleted = true));
     },
     changeChat(id: string) {
       this.activeChat = id;

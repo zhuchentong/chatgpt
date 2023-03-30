@@ -22,8 +22,13 @@
     :width="400"
     placement="right"
   >
-    <n-drawer-content title="系统设置">
-      <SystemSetting></SystemSetting>
+    <n-drawer-content>
+      <n-tabs>
+        <n-tab-pane name="API设置"> <APISetting></APISetting></n-tab-pane>
+        <n-tab-pane name="系统设置">
+          <SystemSetting></SystemSetting
+        ></n-tab-pane>
+      </n-tabs>
     </n-drawer-content>
   </n-drawer>
 </template>
@@ -41,6 +46,7 @@ import ChatBox from "./components/chat-box.vue";
 import { useStore } from "~~/store";
 import AssistantSetting from "./components/assistant-setting.vue";
 import SystemSetting from "./components/system-setting.vue";
+import APISetting from "./components/api-setting.vue";
 
 definePageMeta({
   middleware: ["default-assistant"],

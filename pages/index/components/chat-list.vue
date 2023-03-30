@@ -27,18 +27,27 @@
       </div>
     </div>
     <n-divider />
-    <div class="space-y-2 flex flex-col items-start pl-10 flex-auto">
-      <n-button
-        @click="() => onChangeChat(chat.id)"
-        text
-        v-for="chat in assistant.chats"
-        :type="store.activeChat === chat.id ? 'primary' : 'default'"
-      >
-        <template #icon>
-          <icon-park-outline:message-one></icon-park-outline:message-one>
-        </template>
-        <span>{{ chat.title }}</span>
-      </n-button>
+    <div class="space-y-2 items-start pl-10 pr-5 flex-auto">
+      <div v-for="chat in chats" class="flex justify-between items-center">
+        <n-button
+          @click="() => onChangeChat(chat.id)"
+          text
+          :type="store.activeChat === chat.id ? 'primary' : 'default'"
+        >
+          <template #icon>
+            <icon-park-outline:message-one></icon-park-outline:message-one>
+          </template>
+          <span>{{ chat.title }}</span>
+        </n-button>
+        <n-button
+          class="w-16px"
+          text
+          v-if="store.activeChat === chat.id"
+          @click="() => onDelete(chat)"
+        >
+          <icon-park-outline:delete class="w-16px"></icon-park-outline:delete>
+        </n-button>
+      </div>
     </div>
     <n-divider />
     <div class="space-y-2">
@@ -55,17 +64,25 @@
 }
 </style>
 <script setup lang="ts">
+import { useDialog } from "naive-ui";
+import { Chat } from "~~/interfaces";
 import { useStore } from "~~/store";
 
 const store = useStore();
-
+const dialog = useDialog();
 const assistant = computed(() => store.currentAssistant);
-
+const chats = computed(() =>
+  store.currentAssistant.chats.filter((chat) => !chat.deleted)
+);
 function onCreateChat() {
   store.createChat();
 }
 
 function onChangeChat(id: string) {
   store.changeChat(id);
+}
+
+function onDelete(chat: Chat) {
+  store.deleteChat(chat);
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
-  <div class="chat-header flex justify-between items-center">
-    <div class="title">
+  <div class="chat-header flex items-center justify-between space-x-5">
+    <div class="title flex space-x-5">
       <div v-if="editing" class="flex space-x-2">
         <n-input size="small" v-model:value="title" :maxlength="18"></n-input>
         <n-button
@@ -20,7 +20,21 @@
         </n-button>
       </div>
     </div>
-    <div class="flex items-center">
+
+    <div class="flex items-center space-x-2">
+      <n-popover trigger="hover">
+        <template #trigger>
+          <n-button text size="large">
+            <icon-park-outline:finance></icon-park-outline:finance>
+          </n-button>
+        </template>
+        <span>已消耗Token: {{ chat.usage }}</span>
+      </n-popover>
+
+      <n-button text size="large" @click="onExport">
+        <icon-park-outline:export></icon-park-outline:export>
+      </n-button>
+
       <n-button text size="large" @click="onClear">
         <icon-park-outline:clear></icon-park-outline:clear>
       </n-button>
@@ -38,6 +52,7 @@
 <script setup lang="ts">
 import { useStore } from "~~/store";
 
+const { exportToPng } = useExport();
 const store = useStore();
 const chat = computed(() => store.currentChat);
 
@@ -46,5 +61,10 @@ const editing = $ref(false);
 
 function onClear() {
   store.clearChat();
+}
+
+function onExport() {
+  const element = document.getElementById("chat-content") as HTMLDivElement;
+  exportToPng(element);
 }
 </script>

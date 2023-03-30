@@ -1,6 +1,11 @@
+import { ChatRole } from "./config/enum.config";
+
 export interface ChatRecord {
-  role: "assistant" | "user" | "system";
+  role: ChatRole;
   content: string;
+  usage?: number;
+  datetime?: number;
+  deleted?: boolean;
 }
 
 export interface Chat {
@@ -9,6 +14,7 @@ export interface Chat {
   inputing: boolean;
   usage: number;
   records: ChatRecord[];
+  deleted?: boolean;
 }
 
 export interface Assistant extends AssistantOptions {
@@ -46,4 +52,9 @@ export interface AssistantOptions {
    * 示例
    */
   examples?: string[];
+  /**
+   * 保持上下文
+   * default: true
+   */
+  keepContext?: boolean;
 }

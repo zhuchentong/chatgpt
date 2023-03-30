@@ -1,7 +1,7 @@
 <template>
-  <div class="chat-input">
-    <div class="toolbar"></div>
-    <div class="input-container p-5 flex items-end">
+  <div class="chat-input p-5 space-y-2">
+    <div class="toolbar flex"></div>
+    <div class="input-container flex items-end">
       <n-input
         v-model:value="inputText"
         class="flex-auto"
@@ -29,7 +29,7 @@ const store = useStore();
 const { sendUserMessage } = useChat();
 let inputText = $ref("");
 const assistant = computed(() => store.currentAssistant);
-
+const chat = computed(() => store.currentChat);
 function onSubmit() {
   if (!inputText) {
     return;

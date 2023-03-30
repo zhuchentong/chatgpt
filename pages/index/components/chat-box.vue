@@ -8,12 +8,14 @@
         class="chat-record-list absolute inset-0 overflow-auto space-y-2"
         ref="record-list"
       >
-        <ChatRecord v-for="record in records" :record="record"></ChatRecord>
-        <ChatRecord
-          v-if="chat.inputing"
-          :record="{ role: 'assistant', content: '' }"
-          inputing
-        ></ChatRecord>
+        <div id="chat-content">
+          <ChatRecord v-for="record in records" :record="record"></ChatRecord>
+          <ChatRecord
+            v-if="chat.inputing"
+            :record="{ role: ChatRole.Assistant, content: '' }"
+            inputing
+          ></ChatRecord>
+        </div>
       </div>
     </div>
 
@@ -35,10 +37,13 @@ import { useStore } from "~~/store";
 import ChatRecord from "./chat-record.vue";
 import ChatInput from "./chat-input.vue";
 import ChatHeader from "./chat-header.vue";
+import { ChatRole } from "~~/config/enum.config";
 const store = useStore();
 
 const records = computed(() => {
-  return store.currentChat.records.filter((record) => record.role !== "system");
+  return store.currentChat.records.filter(
+    (record) => record.role !== "system" && !record.deleted
+  );
 });
 
 const recordListRef = $(templateRef<HTMLElement>("record-list"));

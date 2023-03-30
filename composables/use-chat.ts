@@ -2,6 +2,8 @@ import { Configuration, CreateChatCompletionResponse, OpenAIApi } from "openai";
 import { Chat } from "~~/interfaces";
 import { useStore } from "~~/store";
 import axios from "axios";
+import { ChatRole } from "~~/config/enum.config";
+import { keep } from "naive-ui/es/_utils";
 
 let client: OpenAIApi;
 
@@ -36,45 +38,70 @@ export function createAPIClient(
   return client;
 }
 
-function appendAssistantMessage(
+function appendChatMessage(
   chat: Chat,
-  response: CreateChatCompletionResponse
+  role: ChatRole,
+  content: string,
+  usage = 0
 ) {
-  chat.inputing = false;
-
-  const {
-    choices: [data],
-    usage,
-  } = response;
-
-  if (data.message?.content) {
-    chat.records.push({
-      role: "assistant",
-      content: data.message?.content,
-    });
+  if (role === ChatRole.Assistant) {
+    chat.inputing = false;
   }
 
-  chat.usage += usage?.total_tokens || 0;
+  chat.records.push({
+    role,
+    content,
+    datetime: Date.now(),
+    usage,
+  });
+
+  chat.usage += usage;
 }
 
-function sendChatMessage(chat: Chat) {
+function sendChatMessage(chat: Chat, keepContext = true) {
+  const store = useStore();
   chat.inputing = true;
 
   client
     .createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: chat.records,
+      model: store.OPENAI_MODEL,
+      messages: chat.records
+        .filter((record) => !record.deleted)
+        // 关闭KeepContext后仅发送系统消息和最后一条用户消息
+        .filter((record, index) =>
+          keepContext
+            ? true
+            : record.role === ChatRole.System ||
+              (record.role === ChatRole.User &&
+                index === chat.records.length - 1)
+        )
+        .map((record) => ({
+          role: record.role,
+          content: record.content,
+        })),
       temperature: 0,
+      max_tokens: store.tokenLimit === 0 ? undefined : store.tokenLimit,
     })
     .then(({ data }) => {
-      if (data) {
-        appendAssistantMessage(chat, data);
+      const {
+        choices: [{ message }],
+        usage,
+      } = data;
+
+      if (message) {
+        appendChatMessage(
+          chat,
+          ChatRole.Assistant,
+          message?.content,
+          usage?.total_tokens
+        );
       }
     })
     .catch(() => {
       chat.inputing = false;
     });
 }
+
 function sendSystemMessage() {
   if (!client) {
     createAPIClient();
@@ -89,7 +116,7 @@ function sendSystemMessage() {
     return;
   }
 
-  sendChatMessage(chat);
+  sendChatMessage(chat, assistant.keepContext);
 }
 
 function sendUserMessage(input: string) {
@@ -106,17 +133,14 @@ function sendUserMessage(input: string) {
     return;
   }
 
-  chat.records.push({
-    role: "user",
-    content: input,
-  });
-
-  sendChatMessage(chat);
+  appendChatMessage(chat, ChatRole.User, input);
+  sendChatMessage(chat, assistant.keepContext);
 }
 
 export function useChat() {
   return {
     createAPIClient,
+    appendChatMessage,
     sendUserMessage,
     sendSystemMessage,
   };

@@ -1,23 +1,31 @@
 <template>
-  <n-form ref="form" :model="formModel" :rules="formRules">
-    <n-form-item path="apikey" label="APIKEY">
-      <n-input v-model:value="formModel.apikey" @keydown.enter.prevent />
+  <n-form ref="form">
+    <n-form-item label="model">
+      <n-select
+        :value="store.OPENAI_MODEL"
+        placeholder="选择Model"
+        :options="models"
+        @update:value="onChangeModel"
+      />
     </n-form-item>
-    <n-form-item path="apiurl" label="API域名">
-      <n-input v-model:value="formModel.apiurl" @keydown.enter.prevent />
-    </n-form-item>
-    <n-form-item path="apiurl" label="代理URL">
-      <n-input v-model:value="formModel.proxyurl" @keydown.enter.prevent />
-    </n-form-item>
-    <n-form-item>
-      <n-button type="primary" block @click="onSubmit">确定</n-button>
+    <n-form-item label="Token Limit (0:不限制,最小1000)">
+      <n-input-number
+        :update-value-on-input="false"
+        :show-button="false"
+        :min="0"
+        :value="store.tokenLimit"
+        @change="onChangeLimit"
+      >
+        <template #suffix>
+          <icon-park-outline:finance></icon-park-outline:finance>
+        </template>
+      </n-input-number>
     </n-form-item>
   </n-form>
 </template>
 <style lang="scss"></style>
 <script setup lang="ts">
 import { FormInst, useMessage } from "naive-ui";
-import { Configuration, OpenAIApi } from "openai";
 import { useStore } from "~~/store";
 
 const { OPENAI_URL } = useAppConfig();
@@ -25,47 +33,24 @@ const message = useMessage();
 const store = useStore();
 const form = $(templateRef<FormInst>("form"));
 
-let formModel = reactive({
-  apikey: store.OPENAI_KEY,
-  apiurl: store.OPENAI_URL || OPENAI_URL,
-  proxyurl: store.OPENAI_PROXY || "",
-});
+const models = [
+  "gpt-3.5-turbo",
+  "gpt-3.5-turbo-0301",
+  "gpt-4",
+  "gpt-4-0314",
+  "gpt-4-32k",
+].map((v) => ({
+  label: v,
+  value: v,
+}));
 
-const formRules = {
-  apikey: {
-    required: true,
-  },
-  apiurl: {
-    required: true,
-  },
-};
-
-function onSubmit() {
-  form.validate((errors) => {
-    if (errors) {
-      return;
-    }
-
-    validateApiKey()
-      .then(() => {
-        store.updateAPIKEY(formModel.apikey);
-        store.updateAPIURL(formModel.apiurl);
-        message.success("验证成功");
-        store.toggleSystemSettingShow();
-      })
-      .catch(() => {
-        message.error("验证失败");
-      });
-  });
+function onChangeModel(value: string) {
+  store.updateAPIMODEL(value);
 }
 
-async function validateApiKey() {
-  const openai = createAPIClient(
-    formModel.apikey,
-    formModel.apiurl,
-    formModel.proxyurl
-  );
-
-  return openai.listFineTunes();
+function onChangeLimit(value: unknown) {
+  if (value == 0 || (value as number) >= 1000) {
+    store.updateTokenLimit(value as number);
+  }
 }
 </script>

@@ -24,6 +24,18 @@
       class="record-content"
       v-html="marked.parse(record.content)"
     ></div>
+    <div class="m-0! delete hidden">
+      <n-button
+        text
+        size="small"
+        class="w-14px h-14px"
+        @click="() => (record.deleted = true)"
+      >
+        <icon-park-outline:delete
+          class="w-14px h-14px"
+        ></icon-park-outline:delete>
+      </n-button>
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -38,6 +50,12 @@
     color: #fff;
     display: inline-block;
     line-height: 1.5;
+  }
+
+  &:hover {
+    .delete {
+      display: block;
+    }
   }
 
   &.user {
