@@ -18,14 +18,7 @@
         </div>
         <n-grid :x-gap="12" :y-gap="8" :cols="3" class="flex-auto">
           <n-grid-item v-for="(assistant, index) in dataSource">
-            <div
-              class="assistant-item space-y-4"
-              :style="{
-                backgroundColor: `rgb(${10 * Math.random()},${
-                  132 * Math.random()
-                },${255 * Math.random()})`,
-              }"
-            >
+            <div class="assistant-item space-y-4" :style="assistant.style">
               <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
                   <n-avatar
@@ -104,9 +97,18 @@ import { useStore } from "~~/store";
 
 const router = useRouter();
 const store = useStore();
-const assistants = useAssistants();
+
 const theme = useThemeVars();
 const input = $ref("");
+
+const assistants = useAssistants().map((assistant) => ({
+  ...assistant,
+  style: {
+    backgroundColor: `rgb(${10 * Math.random()},${132 * Math.random()},${
+      255 * Math.random()
+    })`,
+  },
+}));
 
 const dataSource = computed(() =>
   assistants.filter((assistant) =>
