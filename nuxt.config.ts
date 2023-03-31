@@ -43,6 +43,17 @@ export default defineNuxtConfig({
     attributify: true, // enabled `@unocss/preset-attributify`,
     shortcuts: [],
     rules: [],
+    theme: {
+      breakpoints: {
+        xs: "320px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        mobile: "320px",
+        desktop: "768px",
+      },
+    },
   },
   ssr: false,
   build: {

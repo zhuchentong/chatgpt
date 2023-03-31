@@ -1,12 +1,14 @@
 <template>
   <div>
     <div
-      class="chat-container flex absolute inset-0 shadow-2xl overflow-hidden"
+      class="chat-container flex absolute inset-0 shadow-2xl overflow-hidden desktop:m-100px desktop:rounded-20px"
     >
-      <ChatList></ChatList>
+      <ChatList class="desktop:block mobile:hidden"></ChatList>
       <ChatBox></ChatBox>
     </div>
-    <AssistantList></AssistantList>
+    <div class="desktop:block mobile:hidden">
+      <AssistantList></AssistantList>
+    </div>
   </div>
   <n-drawer
     v-model:show="store.assistantSettingShow"
@@ -34,9 +36,7 @@
 </template>
 <style lang="scss" scoped>
 .chat-container {
-  margin: 100px;
   background-color: v-bind("theme.bodyColor");
-  border-radius: 20px;
 }
 </style>
 <script setup lang="ts">

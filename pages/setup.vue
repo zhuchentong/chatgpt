@@ -1,15 +1,31 @@
 <template>
   <div class="page-container flex justify-center items-center">
-    <n-card class="form-container" title="设置">
+    <n-card class="form-container desktop:w-40% mobile:w-90%" title="设置">
       <n-form ref="form" :model="formModel" :rules="formRules">
         <n-form-item path="apikey" label="APIKEY">
-          <n-input v-model:value="formModel.apikey" @keydown.enter.prevent />
+          <n-input
+            v-model:value="formModel.apikey"
+            @keydown.enter.prevent
+            placeholder="请输入OPENAI APIKEY"
+          />
         </n-form-item>
         <n-form-item path="apiurl" label="API域名">
-          <n-input v-model:value="formModel.apiurl" @keydown.enter.prevent />
+          <n-input
+            v-model:value="formModel.apiurl"
+            @keydown.enter.prevent
+            placeholder="请输入OPENAI API域名"
+          />
         </n-form-item>
-        <n-form-item path="apiurl" label="代理URL">
-          <n-input v-model:value="formModel.proxyurl" @keydown.enter.prevent />
+        <n-form-item
+          path="apiurl"
+          label="代理URL(可选)"
+          :show-require-mark="false"
+        >
+          <n-input
+            v-model:value="formModel.proxyurl"
+            @keydown.enter.prevent
+            placeholder="请输入代理URL"
+          />
         </n-form-item>
         <n-form-item>
           <n-button type="primary" block @click="onSubmit">确定</n-button>
@@ -22,10 +38,6 @@
 .page-container {
   position: absolute;
   inset: 0;
-}
-
-.form-container {
-  width: 40%;
 }
 </style>
 <script setup lang="ts">

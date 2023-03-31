@@ -41,7 +41,7 @@
 .chat-record {
   padding: 0 10px;
   .record-content {
-    max-width: 80%;
+    max-width: 75%;
     border-radius: 10px;
     background-color: #5966f2;
     margin: 10px;
