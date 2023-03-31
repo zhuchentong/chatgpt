@@ -8,9 +8,16 @@
       </n-button>
     </div>
     <div class="flex-auto relative">
-      <div class="absolute inset-0 overflow-auto p-10">
+      <div class="absolute inset-0 overflow-auto px-10 pb-10">
+        <div class="mb-5">
+          <n-input v-model:value="input" placeholder="搜索你想要的助理">
+            <template #suffix>
+              <icon-park-outline:search></icon-park-outline:search>
+            </template>
+          </n-input>
+        </div>
         <n-grid :x-gap="12" :y-gap="8" :cols="3" class="flex-auto">
-          <n-grid-item v-for="(assistant, index) in assistants">
+          <n-grid-item v-for="(assistant, index) in dataSource">
             <div
               class="assistant-item space-y-4"
               :style="{
@@ -99,6 +106,14 @@ const router = useRouter();
 const store = useStore();
 const assistants = useAssistants();
 const theme = useThemeVars();
+const input = $ref("");
+
+const dataSource = computed(() =>
+  assistants.filter((assistant) =>
+    input ? assistant.name.includes(input) : true
+  )
+);
+
 function onCreateAssistant(assistant: AssistantOptions) {
   store.createAssistant(assistant);
   navigateTo("/");
