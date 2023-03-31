@@ -14,7 +14,7 @@
         :show-button="false"
         :min="0"
         :value="store.tokenLimit"
-        @change="onChangeLimit"
+        @on-update:value="onChangeLimit"
       >
         <template #suffix>
           <icon-park-outline:finance></icon-park-outline:finance>
@@ -22,7 +22,10 @@
       </n-input-number>
     </n-form-item>
     <n-form-item label="主题">
-      <n-switch :value="store.darkTheme" @change="store.toggleDarkTheme">
+      <n-switch
+        :value="store.darkTheme"
+        @on-update:value="store.toggleDarkTheme"
+      >
         <template #checked> 深色 </template>
         <template #unchecked> 浅色 </template>
       </n-switch>

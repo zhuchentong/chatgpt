@@ -59,7 +59,7 @@ export const useStore = defineStore("app", {
     toggleDarkTheme() {
       this.darkTheme = !this.darkTheme;
     },
-    createAssistant(options: AssistantOptions) {
+    createAssistant(options: AssistantOptions, isDefault?: boolean) {
       const id = `ASSISTANT_${Math.random()
         .toString(32)
         .slice(2)
@@ -68,7 +68,7 @@ export const useStore = defineStore("app", {
       const assistant: Assistant = {
         id,
         chats: [],
-        default: this.assistants.length === 0 && options.key === "default",
+        default: isDefault,
         ...options,
       };
 

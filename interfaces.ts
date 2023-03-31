@@ -24,14 +24,11 @@ export interface Assistant extends AssistantOptions {
 }
 
 export interface AssistantOptions {
-  /**
-   * 唯一主键
-   */
-  key: string;
+  default?: boolean;
   /**
    * 头像 avatar-000 - avatar-050
    */
-  avatar: string;
+  avatar?: string;
   /**
    * 显示名称
    */
@@ -43,7 +40,7 @@ export interface AssistantOptions {
   /**
    * 主动聊天
    */
-  auto: boolean;
+  auto?: boolean;
   /**
    * 输入提示
    */
