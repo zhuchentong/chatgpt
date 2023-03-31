@@ -49,13 +49,15 @@
 </style>
 
 <script setup lang="ts">
+import { useMessage } from "naive-ui";
 import { useStore } from "~~/store";
 
 const { exportToPng } = useExport();
 const store = useStore();
-const chat = computed(() => store.currentChat);
+const chat = $(computed(() => store.currentChat));
 
-const title = $ref(chat.value.title);
+const message = useMessage();
+const title = $ref(chat.title);
 const editing = $ref(false);
 
 function onClear() {
@@ -63,6 +65,11 @@ function onClear() {
 }
 
 function onExport() {
+  if (chat.records.filter((record) => !record.deleted).length == 0) {
+    message.warning("暂无可导出的消息");
+    return;
+  }
+
   const element = document.getElementById("chat-content") as HTMLDivElement;
   exportToPng(element);
 }
