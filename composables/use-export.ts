@@ -3,7 +3,10 @@ import domToImage from "dom-to-image";
 export async function exportToPng(element: HTMLDivElement) {
   domToImage
     .toPng(element, {
-      style: { backgroundColor: "#fff", borderRadius: "10px" },
+      style: {
+        backgroundColor: "#fff",
+        borderRadius: "10px",
+      },
       quality: 1,
     })
     .then(function (dataUrl) {
