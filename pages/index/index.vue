@@ -3,10 +3,10 @@
     <div
       class="chat-container flex absolute inset-0 shadow-2xl overflow-hidden desktop:m-100px desktop:rounded-20px"
     >
-      <ChatList class="desktop:block mobile:hidden"></ChatList>
+      <ChatList class="desktop:flex mobile:hidden"></ChatList>
       <ChatBox></ChatBox>
     </div>
-    <div class="desktop:block mobile:hidden">
+    <div class="desktop:flex mobile:hidden">
       <AssistantList></AssistantList>
     </div>
   </div>
