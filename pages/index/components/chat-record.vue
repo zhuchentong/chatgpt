@@ -26,14 +26,13 @@
     ></div>
     <div class="m-0! delete hidden">
       <n-button
+        v-if="!inputing"
         text
         size="small"
         class="w-14px h-14px"
         @click="() => (record.deleted = true)"
       >
-        <icon-park-outline:delete
-          class="w-14px h-14px"
-        ></icon-park-outline:delete>
+        <icon-park-outline:delete></icon-park-outline:delete>
       </n-button>
     </div>
   </div>

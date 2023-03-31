@@ -29,9 +29,9 @@ const store = useStore();
 const { sendUserMessage } = useChat();
 let inputText = $ref("");
 const assistant = computed(() => store.currentAssistant);
-const chat = computed(() => store.currentChat);
+const chat = $(computed(() => store.currentChat));
 function onSubmit() {
-  if (!inputText) {
+  if (!inputText || chat.inputing) {
     return;
   }
 
