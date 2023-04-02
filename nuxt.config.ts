@@ -55,7 +55,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  ssr: true,
+  ssr: false,
   build: {
     transpile: ["vueuc"], // fix dev error: Cannot find module 'vueuc'
   },

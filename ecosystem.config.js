@@ -16,8 +16,7 @@ module.exports = {
       path: "/home/apps/chatgpt", //项目存放服务器文件路径
       ssh_options: "StrictHostKeyChecking=no",
       "pre-deploy": "git fetch --all",
-      "post-deploy":
-        "pnpm install && npm run build && pm2 reload ecosystem.config.js --env production", //部署后的动作
+      "post-deploy": "pnpm install && npm run generate", //部署后的动作
     },
   },
 };
