@@ -1,4 +1,7 @@
 <template>
+  <div class="text-center message-date" v-if="messageDate">
+    {{ messageDate }}
+  </div>
   <div class="chat-record flex items-center space-x-5" :class="record.role">
     <div class="record-avatar">
       <n-avatar
@@ -38,6 +41,12 @@
   </div>
 </template>
 <style lang="scss" scoped>
+.message-date {
+  font-size: 12px;
+  color: #7f7f7f;
+  padding: 5px;
+}
+
 .chat-record {
   padding: 0 10px;
   .record-content {
@@ -112,18 +121,22 @@
 <script setup lang="ts">
 import { ChatRecord } from "~~/interfaces";
 import { useStore } from "~~/store";
-
+import dayjs, { Dayjs } from "dayjs";
 import { marked } from "marked";
 import hljs from "highlight.js";
 import { useMessage } from "naive-ui";
+import isToday from "dayjs/plugin/isToday";
 
-defineProps<{
+dayjs.extend(isToday);
+
+const props = defineProps<{
+  index?: number;
   record: ChatRecord;
   inputing?: boolean;
 }>();
 
 const store = useStore();
-const chat = computed(() => store.currentChat);
+const chat = $(computed(() => store.currentChat));
 const assistant = computed(() => store.currentAssistant);
 const message = useMessage();
 
@@ -146,4 +159,31 @@ function onRecordCopy({ target }: MouseEvent) {
     message.info("已复制到粘贴板");
   }
 }
+
+const messageDate = computed(() => {
+  if (props.index === undefined || !props.record.datetime) {
+    return "";
+  }
+
+  const [last] = chat.records
+    .filter((record) => !record.deleted)
+    .slice(0, props.index)
+    .reverse();
+
+  const date = dayjs(props.record.datetime);
+
+  if (
+    last &&
+    last.datetime &&
+    (props.record.datetime - last.datetime) / 1000 <= 120
+  ) {
+    return "";
+  }
+
+  if (date.isToday()) {
+    return date.format("hh:mm");
+  } else {
+    return date.format("YYYY-MM-DD hh:mm");
+  }
+});
 </script>

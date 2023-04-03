@@ -9,7 +9,11 @@
         ref="record-list"
       >
         <div id="chat-content">
-          <ChatRecord v-for="record in records" :record="record"></ChatRecord>
+          <ChatRecord
+            v-for="(record, index) in records"
+            :record="record"
+            :index="index"
+          ></ChatRecord>
           <ChatRecord
             v-if="chat.inputing"
             :record="{ role: ChatRole.Assistant, content: '' }"

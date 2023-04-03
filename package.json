@@ -27,6 +27,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.4.7",
     "@vueuse/nuxt": "^9.13.0",
+    "dayjs": "^1.11.7",
     "dom-to-image": "^2.6.0",
     "highlight.js": "^11.7.0",
     "highlightjs-copy": "^1.0.3",
